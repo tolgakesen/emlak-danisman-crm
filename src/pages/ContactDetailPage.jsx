@@ -6,6 +6,7 @@ import { deleteContact } from "../services/contacts";
 import { addCall, deleteCall } from "../services/calls";
 import { addLead, updateLead, deleteLead } from "../services/leads";
 import { ILGI_TURLERI, ARAMA_SONUCLARI, LEAD_DURUMLARI, labelFor } from "../constants";
+import { formatDateTime } from "../utils/dates";
 import CallForm from "../components/CallForm";
 import LeadForm from "../components/LeadForm";
 
@@ -140,7 +141,7 @@ export default function ContactDetailPage() {
           {contactCalls.map((call) => (
             <div className="list-item" key={call.id}>
               <div className="list-item-main">
-                <strong>{call.callDate}</strong>
+                <strong>{formatDateTime(call.callDate)}</strong>
                 <span className="tag">{labelFor(ARAMA_SONUCLARI, call.result)}</span>
                 {call.notes && <span className="muted">{call.notes}</span>}
               </div>

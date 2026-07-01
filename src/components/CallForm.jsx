@@ -1,12 +1,9 @@
 import { useState } from "react";
 import { ARAMA_SONUCLARI } from "../constants";
-
-function today() {
-  return new Date().toISOString().slice(0, 10);
-}
+import { nowDateTimeLocal } from "../utils/dates";
 
 export default function CallForm({ onSubmit, onCancel }) {
-  const [callDate, setCallDate] = useState(today());
+  const [callDate, setCallDate] = useState(nowDateTimeLocal());
   const [result, setResult] = useState("ulasildi");
   const [notes, setNotes] = useState("");
 
@@ -19,9 +16,9 @@ export default function CallForm({ onSubmit, onCancel }) {
   return (
     <form className="card-form" onSubmit={handleSubmit}>
       <label>
-        Tarih
+        Tarih ve Saat
         <input
-          type="date"
+          type="datetime-local"
           value={callDate}
           onChange={(e) => setCallDate(e.target.value)}
           required
