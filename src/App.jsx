@@ -3,14 +3,16 @@ import "./App.css";
 import { AuthProvider, useAuth } from "./auth/AuthContext";
 import { DataProvider } from "./data/DataContext";
 import ProtectedRoute from "./auth/ProtectedRoute";
+import AdminRoute from "./auth/AdminRoute";
 import LoginPage from "./pages/LoginPage";
 import DashboardPage from "./pages/DashboardPage";
 import ContactsPage from "./pages/ContactsPage";
 import ContactDetailPage from "./pages/ContactDetailPage";
 import LeadsPage from "./pages/LeadsPage";
+import AdminUsersPage from "./pages/AdminUsersPage";
 
 function Layout({ children }) {
-  const { logout, user } = useAuth();
+  const { logout, user, isAdmin } = useAuth();
 
   return (
     <div className="app-shell">
@@ -20,6 +22,7 @@ function Layout({ children }) {
           <NavLink to="/" end>Pano</NavLink>
           <NavLink to="/kisiler">Kişiler</NavLink>
           <NavLink to="/ipuclari">İpuçları</NavLink>
+          {isAdmin && <NavLink to="/admin/kullanicilar">Kullanıcılar</NavLink>}
         </nav>
         <div className="user-area">
           <span className="user-email">{user?.email}</span>
@@ -64,6 +67,16 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <Layout><LeadsPage /></Layout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/kullanicilar"
+        element={
+          <ProtectedRoute>
+            <AdminRoute>
+              <Layout><AdminUsersPage /></Layout>
+            </AdminRoute>
           </ProtectedRoute>
         }
       />
