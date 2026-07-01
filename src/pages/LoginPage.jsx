@@ -2,16 +2,16 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 
-function firebaseErrorToTurkish(code) {
-  const map = {
-    "auth/invalid-email": "Geçersiz email adresi.",
-    "auth/user-not-found": "Bu email ile kayıtlı kullanıcı bulunamadı.",
-    "auth/wrong-password": "Şifre hatalı.",
-    "auth/invalid-credential": "Email veya şifre hatalı.",
-    "auth/email-already-in-use": "Bu email zaten kayıtlı.",
-    "auth/weak-password": "Şifre en az 6 karakter olmalı.",
-  };
-  return map[code] || "Bir hata oluştu, lütfen tekrar deneyin.";
+function supabaseErrorToTurkish(message) {
+  const map = [
+    [/invalid login credentials/i, "Email veya şifre hatalı."],
+    [/email.*not.*confirmed/i, "Email adresinizi onaylamanız gerekiyor."],
+    [/user already registered/i, "Bu email zaten kayıtlı."],
+    [/password.*should be at least/i, "Şifre en az 6 karakter olmalı."],
+    [/invalid email/i, "Geçersiz email adresi."],
+  ];
+  const match = map.find(([pattern]) => pattern.test(message || ""));
+  return match ? match[1] : "Bir hata oluştu, lütfen tekrar deneyin.";
 }
 
 export default function LoginPage() {
@@ -35,7 +35,7 @@ export default function LoginPage() {
       }
       navigate("/", { replace: true });
     } catch (err) {
-      setError(firebaseErrorToTurkish(err.code));
+      setError(supabaseErrorToTurkish(err.message));
     } finally {
       setSubmitting(false);
     }

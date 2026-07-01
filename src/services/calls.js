@@ -2,7 +2,7 @@ import {
   subscribeOwned,
   addOwned,
   removeOwned,
-} from "./firestoreService";
+} from "./supabaseService";
 
 const COLLECTION = "calls";
 

@@ -32,12 +32,12 @@ export default function ContactDetailPage() {
   }
 
   async function handleAddCall(form) {
-    await addCall(user.uid, { ...form, contactId: id });
+    await addCall(user.id, { ...form, contactId: id });
     setShowCallForm(false);
   }
 
   async function handleAddLead(form) {
-    await addLead(user.uid, { ...form, contactId: id });
+    await addLead(user.id, { ...form, contactId: id });
     setShowLeadForm(false);
   }
 

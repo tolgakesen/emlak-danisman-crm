@@ -1,11 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import {
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
-import { auth } from "../firebase";
+import { supabase } from "../supabase";
 
 const AuthContext = createContext(null);
 
@@ -14,20 +8,32 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-      setUser(firebaseUser);
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
       setLoading(false);
     });
-    return unsubscribe;
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
-  const login = (email, password) =>
-    signInWithEmailAndPassword(auth, email, password);
+  async function login(email, password) {
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) throw error;
+  }
 
-  const signup = (email, password) =>
-    createUserWithEmailAndPassword(auth, email, password);
+  async function signup(email, password) {
+    const { error } = await supabase.auth.signUp({ email, password });
+    if (error) throw error;
+  }
 
-  const logout = () => signOut(auth);
+  const logout = () => supabase.auth.signOut();
 
   return (
     <AuthContext.Provider value={{ user, loading, login, signup, logout }}>

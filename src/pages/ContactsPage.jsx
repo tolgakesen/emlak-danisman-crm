@@ -24,7 +24,7 @@ export default function ContactsPage() {
   }, [contacts, search]);
 
   async function handleAdd(form) {
-    await addContact(user.uid, form);
+    await addContact(user.id, form);
     setShowForm(false);
   }
 

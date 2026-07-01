@@ -3,7 +3,7 @@ import {
   addOwned,
   updateOwned,
   removeOwned,
-} from "./firestoreService";
+} from "./supabaseService";
 
 const COLLECTION = "leads";
 

@@ -19,9 +19,9 @@ export function DataProvider({ children }) {
       setLeads([]);
       return;
     }
-    const unsubContacts = subscribeContacts(user.uid, setContacts);
-    const unsubCalls = subscribeCalls(user.uid, setCalls);
-    const unsubLeads = subscribeLeads(user.uid, setLeads);
+    const unsubContacts = subscribeContacts(user.id, setContacts);
+    const unsubCalls = subscribeCalls(user.id, setCalls);
+    const unsubLeads = subscribeLeads(user.id, setLeads);
     return () => {
       unsubContacts();
       unsubCalls();
