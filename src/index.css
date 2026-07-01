@@ -1,0 +1,105 @@
+:root {
+  --text: #3f3d45;
+  --text-h: #08060d;
+  --bg: #f7f7f9;
+  --surface: #ffffff;
+  --border: #e2e1e6;
+  --accent: #7a3bff;
+  --accent-hover: #6425e6;
+  --danger: #d9432e;
+  --danger-hover: #b8351f;
+  --muted: #8a8792;
+  --shadow: rgba(0, 0, 0, 0.06) 0 2px 8px;
+
+  --sans: system-ui, "Segoe UI", Roboto, sans-serif;
+
+  font: 16px/145% var(--sans);
+  color-scheme: light;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+h1,
+h2 {
+  color: var(--text-h);
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+h1 {
+  font-size: 26px;
+}
+
+h2 {
+  font-size: 19px;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  background: var(--accent);
+  color: #fff;
+  transition: background 0.15s ease;
+}
+
+button:hover {
+  background: var(--accent-hover);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+button.secondary {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+button.secondary:hover {
+  background: #f0eff3;
+}
+
+button.danger {
+  background: var(--danger);
+}
+
+button.danger:hover {
+  background: var(--danger-hover);
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  width: 100%;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+a {
+  color: var(--accent);
+}
